@@ -17,7 +17,11 @@ for page in range(indeed_page_number):
 
     for job_num in range(len(job_info_html)):
         job_title = job_info_html[job_num].find('a').get('title')
-        job_company = job_info_html[job_num].find('span',{'class' : 'company'}).string
+        if(job_info_html[job_num].find('span',{'class' : 'company'}).string is not None):
+            job_company = job_info_html[job_num].find('span',{'class' : 'company'}).string
+        else:
+            job_company = job_info_html[job_num].find('span',{'class' : 'company'}).find('a').get_text()
+        job_company = job_company.replace('\n','')
         if(job_info_html[job_num].find('span',{'class' : 'location'}) is not None):
             job_location = job_info_html[job_num].find('span',{'class' : 'location'}).string
         else:
